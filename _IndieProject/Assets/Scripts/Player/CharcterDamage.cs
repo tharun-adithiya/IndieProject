@@ -50,6 +50,7 @@ public class CharcterDamage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if ((collision.CompareTag("Trap") && !hitboxCheck.DidHitTrap()))
         //collision=GetComponent<Collider2D>();
         if (collision.CompareTag("Trap") && !hitboxCheck.DidHitTrap())
         {
@@ -58,11 +59,14 @@ public class CharcterDamage : MonoBehaviour
             manager.playSFX(manager.hurt);
             anim.SetTrigger("IsHurt");
 
+            // Push the player away from the trap
+          
 
             if (trapPos > currentPosition.x && arrowProjection.isArrow())
             {
                 currentPosition.x -= 0.9f;
             }
+            
             else if (trapPos < currentPosition.x && arrowProjection.isArrow())
             {
                 currentPosition.x += 0.9f;
