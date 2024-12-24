@@ -10,16 +10,12 @@ public class hitBoxCheck : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ((collision.CompareTag("Trap") && isActive)|| (collision.CompareTag("MovingTraps") && isActive))
+        if ((collision.CompareTag("Trap") && isActive)/*|| (collision.CompareTag("MovingTraps") && isActive)*/)
         {
             Debug.Log("Sword hit the trap!");
             hitTrap = true; // Register that the sword hit a trap
         }
-        if (collision.CompareTag("MovingTraps")&&isActive)
-        {
-            Debug.Log("Sword hit the trap!");
-            hitTrap = true; // Register that the sword hit a trap
-        }
+
     }
 
     public void StartAttack(float attackDuration)

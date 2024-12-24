@@ -6,14 +6,19 @@ public class CharcterDamage : MonoBehaviour
     public Animator anim;
     public AudioManager manager; // Manager to play SFX
     public GameObject trap;
+    public GameObject arrow;
 
     private Vector3 currentPosition;
     private float trapPos;
+    private float arrowPos;
     private ArrowProjection arrowProjection;
+    private PlayerMovement playerMovement;
 
     private void Awake()
     {
         arrowProjection =GetComponent<ArrowProjection>();
+        playerMovement = GetComponent<PlayerMovement>();
+        
     }
 
 
@@ -21,6 +26,7 @@ public class CharcterDamage : MonoBehaviour
     {
         currentPosition = transform.position;
         trapPos = trap.transform.position.x;
+        arrowPos = arrow.transform.position.x;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -45,6 +51,8 @@ public class CharcterDamage : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if ((collision.CompareTag("Trap") && !hitboxCheck.DidHitTrap()))
+        //collision=GetComponent<Collider2D>();
+        if (collision.CompareTag("Trap") && !hitboxCheck.DidHitTrap())
         {
             // Player gets hurt
             Debug.Log("Player is hurt!");
@@ -52,35 +60,21 @@ public class CharcterDamage : MonoBehaviour
             anim.SetTrigger("IsHurt");
 
             // Push the player away from the trap
-            if (trapPos > currentPosition.x)
+          
+
+            if (trapPos > currentPosition.x && arrowProjection.isArrow())
             {
                 currentPosition.x -= 0.9f;
             }
-            else if (trapPos < currentPosition.x)
+            
+            else if (trapPos < currentPosition.x && arrowProjection.isArrow())
             {
                 currentPosition.x += 0.9f;
             }
 
-            transform.position = currentPosition;
-        }
-        if (collision.CompareTag("MovingTraps")&&!arrowProjection.isArrowDestroyed())
-        {
-            // Player gets hurt
-            Debug.Log("Player is hurt!");
-            manager.playSFX(manager.hurt);
-            anim.SetTrigger("IsHurt");
-
-            // Push the player away from the trap
-            if (trapPos > currentPosition.x)
-            {
-                currentPosition.x -= 0.9f;
-            }
-            else if (trapPos < currentPosition.x)
-            {
-                currentPosition.x += 0.9f;
-            }
 
             transform.position = currentPosition;
         }
+
     }
 }
