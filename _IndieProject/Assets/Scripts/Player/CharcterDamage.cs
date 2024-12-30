@@ -87,4 +87,4 @@ public class CharcterDamage : MonoBehaviour
         return isHurt;
     }
 
-}   
+}
