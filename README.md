@@ -1,2 +1,2 @@
 # IndieProject
-Here I track my first complete game development project
+"I am sharing my process of learning game development while creating a small prototype."
